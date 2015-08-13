@@ -6,10 +6,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.BaseAdapter;
 
 import com.android.ivant.listviewapp.model.Song;
 import com.bumptech.glide.Glide;
@@ -22,16 +26,19 @@ import butterknife.ButterKnife;
 /**
  * Created by User on 04/08/2015.
  */
-public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> {
+public class SongsAdapter extends BaseAdapter {
+//public class SongsAdapter extends BaseAdapter<SongsAdapter.ViewHolder> {
 
     public static final String TAG = SongsAdapter.class.getSimpleName();
 
     private Context mContext;
     private List<Song> mSongs;
+    private LayoutInflater mLayoutInflater;
 
     public SongsAdapter(Context context, List<Song> songs) {
         mContext = context;
         mSongs = songs;
+        mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE));
     }
 
     public void updateData(List<Song> songs) {
@@ -46,9 +53,10 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
 
     // Create new views (invoked by the layout manager)
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public View getView(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_song, parent, false);
         ViewHolder vh = new ViewHolder(v);
+        vh = (vh);
 
         return vh;
     }
@@ -76,12 +84,12 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
-    public int getItemCount() {
+    public int getCount() {
 
         return mSongs.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder {
         @Bind(R.id.row_layout)
         RelativeLayout rowLayout;
         @Bind(R.id.row_image)

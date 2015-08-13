@@ -7,7 +7,12 @@ import java.io.Serializable;
 /**
  * Created by User on 04/08/2015.
  */
+//creates static names for the data pulled from url.
+    // associates the string with correlating xml id.
+    //creates setters and getters
 public class Song implements Serializable {
+
+
 
     public static final String PROPERTY_ARTWORK_URL_100 = "artworkUrl100";
     public static final String PROPERTY_ARTIST_NAME = "artistName";

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Bind(R.id.search_text)
     EditText mSearchText;
-    @Bind(R.id.recyclerview)
-    RecyclerView mRecyclerView;
+    @Bind(R.id.listview)
+    ListView mListView;
     @Bind(R.id.no_results)
     TextView mNoResults;
     @Bind(R.id.progress_bar)
@@ -65,11 +66,14 @@ public class MainActivity extends AppCompatActivity {
             handleSearch();
         }
 
-        mRecyclerView.setHasFixedSize(false);
+        mListView.setAdapter(new SongsAdapter(this, mSongs));
+        //mListView.setHasFixedSize(false);
         mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        //mListView.setLayoutManager(mLayoutManager);
         mAdapter = new SongsAdapter(this, mSongs);
-        mRecyclerView.setAdapter(mAdapter);
+        mListView.setAdapter(mAdapter);
+        //mAdapter = new SongsAdapter(this, mSongs);
 
         mSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {

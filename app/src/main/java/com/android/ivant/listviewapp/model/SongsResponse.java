@@ -8,6 +8,9 @@ import java.util.List;
 /**
  * Created by User on 04/08/2015.
  */
+
+//takes the data taken from url and puts it into arraylist.
+
 public class SongsResponse implements Serializable {
     public static final String TAG = SongsResponse.class.getSimpleName();
 
