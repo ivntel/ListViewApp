@@ -1,5 +1,6 @@
 package com.android.ivant.listviewapp;
 
+import android.app.ListActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,6 +31,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class MainActivity extends AppCompatActivity {
+    //public class MainActivity extends AppCompatActivity {
     public static final String DEFAULT_SEARCH_TERM = "rock";
 
     public static final String TAG = MainActivity.class.getSimpleName();
@@ -44,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.progress_bar)
     ProgressBar mProgressBar;
 
-    private LinearLayoutManager mLayoutManager;
     private SongsAdapter mAdapter;
     private List<Song> mSongs = new ArrayList<Song>();
     private SongsResponse mSongsResponse;
@@ -66,11 +67,7 @@ public class MainActivity extends AppCompatActivity {
             handleSearch();
         }
 
-        mListView.setAdapter(new SongsAdapter(this, mSongs));
-        //mListView.setHasFixedSize(false);
-        mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
-        //mListView.setLayoutManager(mLayoutManager);
         mAdapter = new SongsAdapter(this, mSongs);
         mListView.setAdapter(mAdapter);
         //mAdapter = new SongsAdapter(this, mSongs);

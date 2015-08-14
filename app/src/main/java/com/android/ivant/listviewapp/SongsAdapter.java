@@ -18,6 +18,7 @@ import android.widget.BaseAdapter;
 import com.android.ivant.listviewapp.model.Song;
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -26,19 +27,20 @@ import butterknife.ButterKnife;
 /**
  * Created by User on 04/08/2015.
  */
+
 public class SongsAdapter extends BaseAdapter {
-//public class SongsAdapter extends BaseAdapter<SongsAdapter.ViewHolder> {
+
+    private LayoutInflater mInflater;
+    private List<Song> mSongs;
+    private Context mContext;
 
     public static final String TAG = SongsAdapter.class.getSimpleName();
 
-    private Context mContext;
-    private List<Song> mSongs;
-    private LayoutInflater mLayoutInflater;
-
     public SongsAdapter(Context context, List<Song> songs) {
         mContext = context;
+        mInflater = LayoutInflater.from(context);
         mSongs = songs;
-        mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE));
+
     }
 
     public void updateData(List<Song> songs) {
@@ -47,30 +49,56 @@ public class SongsAdapter extends BaseAdapter {
     }
 
     @Override
-    public long getItemId(int position) {
-        return 0;
+    public int getCount() {
+
+        return mSongs.size();
     }
+
+    @Override
+    public long getItemId(int position) {
+
+        return position;
+    }
+
+    @Override
+    public Object getItem(int position) {
+
+        return mSongs.get(position);
+    }
+
 
     // Create new views (invoked by the layout manager)
     @Override
-    public View getView(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_song, parent, false);
-        ViewHolder vh = new ViewHolder(v);
-        vh = (vh);
-
-        return vh;
-    }
-
-    // Replace the contents of a view (invoked by the layout manager)
-    @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public View getView(int position, View convertView, ViewGroup parent) {
+        //View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_song, parent, false);
+        View view;
+        ViewHolder holder;
 
         final Song song = mSongs.get(position);
+
+        if (convertView == null){
+            view = mInflater.inflate(R.layout.row_song, parent, false);
+            holder = new ViewHolder();
+
+            holder.rowArtist = (TextView)view.findViewById(R.id.row_artist);
+            holder.rowImage = (ImageView)view.findViewById(R.id.row_image);
+            holder.rowLayout = (RelativeLayout)view.findViewById(R.id.row_layout);
+            holder.rowSong = (TextView)view.findViewById(R.id.row_song);
+            view.setTag(holder);
+
+
+        }
+        else{
+            view = convertView;
+            holder = (ViewHolder) convertView.getTag();
+        }
+
         holder.rowArtist.setText(song.getArtistName());
         holder.rowSong.setText(song.getSongName());
         Glide.with(mContext).load(song.getArtistUrl()).into(holder.rowImage);
 
         holder.rowLayout.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 Toast.makeText(mContext, "Clicked on " + song.getSongName(), Toast.LENGTH_SHORT).show();
@@ -80,29 +108,26 @@ public class SongsAdapter extends BaseAdapter {
             }
         });
 
-    }
+
+        return view;
+        }
+
+    // Replace the contents of a view (invoked by the layout manager)
+
 
     // Return the size of your dataset (invoked by the layout manager)
-    @Override
-    public int getCount() {
-
-        return mSongs.size();
-    }
-
     public static class ViewHolder {
-        @Bind(R.id.row_layout)
-        RelativeLayout rowLayout;
-        @Bind(R.id.row_image)
-        ImageView rowImage;
-        @Bind(R.id.row_artist)
-        TextView rowArtist;
-        @Bind(R.id.row_song)
-        TextView rowSong;
 
-        public ViewHolder(View v) {
-            super(v);
-            ButterKnife.bind(this, v);
+        public RelativeLayout rowLayout;
+
+        public ImageView rowImage;
+
+        public TextView rowArtist;
+
+        public TextView rowSong;
+
+
         }
     }
 
-}
+
