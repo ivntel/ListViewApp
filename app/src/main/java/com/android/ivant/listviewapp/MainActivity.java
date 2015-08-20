@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG = MainActivity.class.getSimpleName();
     public static final String KEY_SONGS_RESPONSE = "KEY_SONGS_RESPONSE";
 
+    //butterknife - associating xml id's to their java counterparts
+
     @Bind(R.id.search_text)
     EditText mSearchText;
     @Bind(R.id.listview)
@@ -46,8 +48,11 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.progress_bar)
     ProgressBar mProgressBar;
 
+    //the adapter that works with the array
     private SongsAdapter mAdapter;
+    //giving the array of songs its variable name
     private List<Song> mSongs = new ArrayList<Song>();
+    //brings the SongsResponse class in which handles all of the url data and puts it into an array and what not.
     private SongsResponse mSongsResponse;
 
     @Override
@@ -56,7 +61,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        //sets the text in the searchtext view in the xml to this default
         mSearchText.setText(DEFAULT_SEARCH_TERM);
+        //changes what is in the searchtext view to whatever the user types in
         mSearchText.setSelection(mSearchText.getText().length());
 
         // Check if we have data to display (after rotation)
@@ -68,9 +75,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+        //the adapter that adapts the array from this activity and puts it into this variable name
         mAdapter = new SongsAdapter(this, mSongs);
+        //puts the content from mAdapter into the listview
         mListView.setAdapter(mAdapter);
-        //mAdapter = new SongsAdapter(this, mSongs);
+
 
         mSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -83,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //saves all content after screen rotation
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -101,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
         String searchTerm = mSearchText.getText().toString();
         RestClient.getSearchApi().getItunesSearchResults(searchTerm, new Callback<SongsResponse>() {
 
+            //method that is called when the url has succesfuly brought back data to be stored
             @Override
             public void success(SongsResponse songsResponse, Response response) {
                 Log.d(TAG, response.getBody().toString());
@@ -111,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
                 mNoResults.setVisibility(mSongs != null && mSongs.size() > 0 ? View.GONE : View.VISIBLE);
             }
 
+            //the method that is called when no results are able to be pulled or displayed from the url for whatever reason
             @Override
             public void failure(RetrofitError error) {
                 Toast.makeText(MainActivity.this, "No results found", Toast.LENGTH_SHORT).show();
