@@ -51,7 +51,6 @@ public class DetailActivity extends ActionBarActivity {
             Song song = (Song) intent.getSerializableExtra(ARG_SONG);
 
             if (song != null) {
-
                 detailArtist.setText("Artist: " + song.getArtistName());
                 detailSong.setText("Song name: " + song.getSongName());
                 collectionName.setText("Album name: " + song.getCollectionName());
@@ -67,6 +66,4 @@ public class DetailActivity extends ActionBarActivity {
             }
         }
     }
-
-
 }

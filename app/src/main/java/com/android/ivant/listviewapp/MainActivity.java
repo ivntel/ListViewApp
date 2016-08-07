@@ -31,7 +31,6 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class MainActivity extends AppCompatActivity {
-    //public class MainActivity extends AppCompatActivity {
     public static final String DEFAULT_SEARCH_TERM = "rock";
 
     public static final String TAG = MainActivity.class.getSimpleName();
@@ -60,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
         //sets the text in the searchtext view in the xml to this default
         mSearchText.setText(DEFAULT_SEARCH_TERM);
         //changes what is in the searchtext view to whatever the user types in
@@ -130,8 +128,5 @@ public class MainActivity extends AppCompatActivity {
                 mNoResults.setVisibility(View.VISIBLE);
             }
         });
-
     }
-
-
 }

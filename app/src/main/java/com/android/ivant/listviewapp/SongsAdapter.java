@@ -66,11 +66,9 @@ public class SongsAdapter extends BaseAdapter {
         return mSongs.get(position);
     }
 
-
     // Create new views (invoked by the layout manager)
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        //View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_song, parent, false);
         View view;
         ViewHolder holder;
 
@@ -125,9 +123,7 @@ public class SongsAdapter extends BaseAdapter {
         public TextView rowArtist;
 
         public TextView rowSong;
-
-
-        }
     }
+}
 
 
